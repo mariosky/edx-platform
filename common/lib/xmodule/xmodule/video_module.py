@@ -188,7 +188,7 @@ class VideoModule(VideoFields, XModule):
     def handle_ajax(self, dispatch, data):
         ACCEPTED_KEYS = ['speed', 'position']
 
-        # import ipdb; ipdb.set_trace()
+        import ipdb; ipdb.set_trace()
 
         if dispatch == 'save_user_state':
             for key in data:
