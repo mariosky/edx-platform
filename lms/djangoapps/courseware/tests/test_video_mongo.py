@@ -74,6 +74,7 @@ class TestVideoYouTube(TestVideo):
             'autoplay': settings.FEATURES.get('AUTOPLAY_VIDEOS', False),
             'yt_test_timeout': 1500,
             'yt_test_url': 'https://gdata.youtube.com/feeds/api/videos/',
+            'transcripts' : '{"ua": "ukrainian_translation.srt"}',
         }
 
         self.assertEqual(
@@ -128,6 +129,7 @@ class TestVideoNonYouTube(TestVideo):
             'autoplay': settings.FEATURES.get('AUTOPLAY_VIDEOS', True),
             'yt_test_timeout': 1500,
             'yt_test_url': 'https://gdata.youtube.com/feeds/api/videos/',
+            'transcripts': '{}'
         }
 
         self.assertEqual(
