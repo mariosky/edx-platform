@@ -14,8 +14,21 @@
 
 define(
 'video/01_initialize.js',
-['video/03_video_player.js', 'video/00_cookie_storage.js'],
-function (VideoPlayer, CookieStorage) {
+['video/03_video_player.js', 'video/00_video_storage.js'],
+function (VideoPlayer, VideoStorage) {
+    // window.console.log() is expected to be available. We do not support
+    // browsers which lack this functionality.
+
+    // The function gettext() is defined by a vendor library. If, however, it
+    // is undefined, it is a simple wrapper. It is used to return a different
+    // version of the string passed (translated string, etc.). In the basic
+    // case, the original string is returned.
+    if (typeof(window.gettext) == 'undefined') {
+        window.gettext = function (s) {
+            return s;
+        };
+    }
+
     /**
      * @function
      *
@@ -82,8 +95,8 @@ function (VideoPlayer, CookieStorage) {
             parseSpeed: parseSpeed,
             parseVideoSources: parseVideoSources,
             parseYoutubeStreams: parseYoutubeStreams,
+            saveState: saveState,
             setSpeed: setSpeed,
-            stopBuffering: stopBuffering,
             trigger: trigger,
             youtubeId: youtubeId
         };
@@ -271,13 +284,13 @@ function (VideoPlayer, CookieStorage) {
         return dfd.promise();
     }
 
-    function _getConfiguration(data) {
+    function _getConfiguration(data, storage) {
             var isBoolean = function (value) {
                     var regExp = /^true$/i;
                     return regExp.test(value.toString());
                 },
                 // List of keys that will be extracted form the configuration.
-                extractKeys = ['speed'],
+                extractKeys = [],
                 // Compatibility keys used to change names of some parameters in
                 // the final configuration.
                 compatKeys = {
@@ -289,6 +302,17 @@ function (VideoPlayer, CookieStorage) {
                     'showCaptions': isBoolean,
                     'autoplay': isBoolean,
                     'autohideHtml5': isBoolean,
+                    'position': function (value) {
+                        return  storage.getItem('position', true) ||
+                                Number(value) ||
+                                0;
+                    },
+                    'speed': function (value) {
+                        return  storage.getItem('speed', true) ||
+                                storage.getItem('general_speed') ||
+                                value.toFixed(2).replace(/\.00$/, '.0') ||
+                                '1.0';
+                    },
                     'ytTestTimeout': function (value) {
                         value = parseInt(value, 10);
 
@@ -380,7 +404,7 @@ function (VideoPlayer, CookieStorage) {
             id = el.attr('id').replace(/video_/, ''),
             __dfd__ = $.Deferred(),
             isTouch = onTouchBasedDevice() || '',
-            storage = CookieStorage('video_player'),
+            storage = VideoStorage('VideoData', id);
             speed = storage.getItem('video_speed_' + id) ||
                 el.data('speed') ||
                 storage.getItem('general_speed') ||
@@ -411,7 +435,7 @@ function (VideoPlayer, CookieStorage) {
         // are "read only", so don't modify them. All variable content lives in
         // 'state' object.
         // jQuery .data() return object with keys in lower camelCase format.
-        this.config = $.extend({}, _getConfiguration(el.data()), {
+        this.config = $.extend({}, _getConfiguration(el.data(), storage), {
             element: element,
             fadeOutTimeout:     1400,
             captionsFreezeTime: 10000,
@@ -421,6 +445,9 @@ function (VideoPlayer, CookieStorage) {
         if (this.config.endTime < this.config.startTime) {
             this.config.endTime = null;
         }
+
+        this.speed = this.config.speed;
+        this.currentTime = this.config.position;
 
         if (!(_parseYouTubeIDs(this))) {
 
@@ -637,8 +664,8 @@ function (VideoPlayer, CookieStorage) {
         }
 
         if (updateStorage) {
-            this.storage.setItem('video_speed_' + this.id, this.speed, useSession);
-            this.storage.setItem('general_speed', this.speed, useSession);
+            this.storage.setItem('speed', this.speed, true);
+            this.storage.setItem('general_speed', this.speed);
         }
     }
 
@@ -659,16 +686,18 @@ function (VideoPlayer, CookieStorage) {
         return xhr;
     }
 
-    function stopBuffering() {
-        var video;
+    function saveState(async) {
+        var position = this.videoPlayer.currentTime;
 
-        if (this.videoType === 'html5') {
-            // HTML5 player haven't default way to abort bufferization.
-            // In this case we simply resetting source and call load().
-            video = this.videoPlayer.player.video;
-            video.src = '';
-            video.load();
-        }
+        this.videoPlayer.onPause();
+        this.storage.setItem('position', position, true);
+        $.ajax({
+            url: this.config.saveStateUrl,
+            type: 'POST',
+            async: async ? true : false,
+            dataType: 'json',
+            data: {position: position},
+        });
     }
 
     function youtubeId(speed) {

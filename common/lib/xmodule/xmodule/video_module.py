@@ -46,7 +46,7 @@ class VideoFields(object):
         default="Video",
         scope=Scope.settings
     )
-    position = Float(
+    position = RelativeTime(
         help="Current position in the video",
         scope=Scope.user_state,
         default=0
@@ -167,7 +167,7 @@ class VideoModule(VideoFields, XModule):
     # index. We do that to avoid issues that occurs in tests.
     js = {
         'js': [
-            resource_string(__name__, 'js/src/video/00_cookie_storage.js'),
+            resource_string(__name__, 'js/src/video/00_video_storage.js'),
             resource_string(__name__, 'js/src/video/00_resizer.js'),
             resource_string(__name__, 'js/src/video/01_initialize.js'),
             resource_string(__name__, 'js/src/video/025_focus_grabber.js'),
@@ -187,8 +187,6 @@ class VideoModule(VideoFields, XModule):
 
     def handle_ajax(self, dispatch, data):
         ACCEPTED_KEYS = ['speed', 'position']
-
-        import ipdb; ipdb.set_trace()
 
         if dispatch == 'save_user_state':
             for key in data:
@@ -237,7 +235,7 @@ class VideoModule(VideoFields, XModule):
             'sources': sources,
             'speed': json.dumps(self.speed),
             'general_speed': self.global_speed,
-            'position': self.position,
+            'position': self.position.total_seconds(),
             'start': self.start_time.total_seconds(),
             'sub': self.sub,
             'track': track_url,
