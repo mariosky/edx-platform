@@ -22,6 +22,7 @@
     data-show-captions="${show_captions}"
     data-speed="${speed}"
     data-start="${start}"
+    data-transcripts='${transcripts}'
     data-end="${end}"
     data-caption-asset-path="${caption_asset_path}"
     data-autoplay="${autoplay}"
@@ -81,7 +82,10 @@
                       <a href="#" class="add-fullscreen" title="${_('Fill browser')}" role="button" aria-disabled="false">${_('Fill browser')}</a>
                       <a href="#" class="quality_control" title="${_('HD off')}" role="button" aria-disabled="false">${_('HD off')}</a>
 
-                      <a href="#" class="hide-subtitles" title="${_('Turn off captions')}" role="button" aria-disabled="false">${_('Turn off captions')}</a>
+                      <div class="lang">
+                        <a href="#" class="hide-subtitles" title="${_('Turn off captions')}" role="button" aria-
+                        disabled="false">${_('Turn off captions')}</a>
+                      </div>
                   </div>
               </div>
           </section>
