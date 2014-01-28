@@ -675,7 +675,7 @@ function (VideoPlayer, CookieStorage) {
     }
 
     function youtubeId(speed) {
-        return this.videos[speed || this.speed];
+        return this.videos[speed || this.speed] || this.videos['1.0'];
     }
 
     function getDuration() {
