@@ -202,7 +202,7 @@ function (VideoPlayer, CookieStorage) {
             '0.75': state.config.sub,
             '1.0':  state.config.sub,
             '1.25': state.config.sub,
-            '1.5':  state.config.sub
+            '1.50':  state.config.sub
         };
 
         // We must have at least one non-YouTube video source available.
@@ -278,7 +278,7 @@ function (VideoPlayer, CookieStorage) {
                     return regExp.test(value.toString());
                 },
                 // List of keys that will be extracted form the configuration.
-                extractKeys = ['speed'],
+                extractKeys = ['speed', 'language'],
                 // Compatibility keys used to change names of some parameters in
                 // the final configuration.
                 compatKeys = {
@@ -382,9 +382,12 @@ function (VideoPlayer, CookieStorage) {
             __dfd__ = $.Deferred(),
             isTouch = onTouchBasedDevice() || '',
             storage = CookieStorage('video_player'),
+
             speed = storage.getItem('video_speed_' + id) ||
                 storage.getItem('general_speed') ||
-                el.data('speed').toFixed(2).replace(/\.00$/, '.0') || '1.0';
+                el.data('speed').toFixed(2).replace(/\.00$/, '.0') || '1.0',
+
+            lang = storage.getItem('language') || el.data('language') || 'en';
 
         if (isTouch) {
             el.addClass('is-touch');
@@ -398,6 +401,7 @@ function (VideoPlayer, CookieStorage) {
             id: id,
             isFullScreen: false,
             isTouch: isTouch,
+            lang: lang,
             speed: speed,
             storage: storage
         });
