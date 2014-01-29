@@ -212,7 +212,7 @@ def single_course_reverification_info(user, course, enrollment):
     """Returns midcourse reverification-related information for user with enrollment in course.
 
     If a course has an open re-verification window, and that user has a verified enrollment in
-    the course, we return a tuple with relevant information.  Returns None if there is no info..
+    the course, we return a tuple with relevant information. Returns None if there is no info..
 
     Args:
         user (User): the user we want to get information for
@@ -220,7 +220,7 @@ def single_course_reverification_info(user, course, enrollment):
         enrollment (CourseEnrollment): the object representing the type of enrollment user has in course
 
     Returns:
-        5-tuple: (course_id, course_display_name, course_number, reverification_end_date, reverification_status)
+        5-namedtuple: (course_id, course_name, course_number, date, status)
         OR, None: None if there is no re-verification info for this enrollment
     """
     ReverifyInfo = namedtuple('ReverifyInfo', 'course_id course_name course_number date status')
