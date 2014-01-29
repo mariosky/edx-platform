@@ -413,9 +413,14 @@ def midcourse_reverify_dash(request):
 
     reverifications = reverification_info(course_enrollment_pairs, user, statuses)
 
+    from nose.tools import set_trace; set_trace()
+    from util.request import safe_get_host; host = safe_get_host(request)
+    referer = request.META.get('HTTP_REFERER')
+
     context = {
         "user_full_name": user.profile.name,
         'reverifications': reverifications,
+        'referer': request.META.get('HTTP_REFERER'),
     }
     return render_to_response("verify_student/midcourse_reverify_dash.html", context)
 
