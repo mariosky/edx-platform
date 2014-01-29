@@ -2208,10 +2208,44 @@
     }
   }
 
+  &.step-confirmation {
 
+    .instruction {
+      display: inline-block;
+      width: flex-grid(8,12);
+      vertical-align: top;
+    }
 
+    .actions-next {
+      display: inline-block;
+      width: flex-grid(4,12);
+      vertical-align: top;
+      margin-top: $baseline;
+    }
 
+    .nav-item {
+      display: block;
+      margin: 0 0 $baseline 0;
+      text-align: center;
+
+      &.conditional:after {
+        content: "or";
+        display: block;
+        margin: $baseline 0;
+      }
+    }
+
+  }
 }
+
+
+//reverify notification special styles
+.msg-reverify {
+  .reverify-list {
+    margin: 5px 0;
+  }
+}
+
 // ====================
 
 // STATE: already verified
