@@ -21,9 +21,9 @@ Guidance for working with personal information
 
 The information that edX collects from site registrants includes personal information that can be used to identify, contact, and locate individuals. This information is available to course authors for the students who are enrolled in their courses. 
 
-Course authors should/must/are obligated to/? treat this information... 
+Course authors should follow the policies established by their organizations and comply with the legal requirements of their locales to prevent public distribution or misuse of this information. 
 
-**Question**: what suggestions can/should be made?
+**Question**: I just made this statement up. What guidance can/should we give, for immediate publication and in the future?
 
 .. _Accessing_student_data:
 
@@ -42,7 +42,7 @@ When students register with edX, they select a public username and supply inform
  .. image:: Images/Registration_page.png
    :alt: Fields that collect student information during registration
 
-Students then register for as many individual courses as they choose, which enrolls them in the selected courses. 
+Students then register for as many individual courses as they choose, which enrolls them in each selected course. 
 
 You can access this self-reported information for all of the students who are enrolled in your course:
 
@@ -51,22 +51,19 @@ You can access this self-reported information for all of the students who are en
 * email
 * year_of_birth
 * gender
-* level_of_education **Question**: do we need to decode the values stored for the drop-down choices?
+* level_of_education
 * mailing_address
 * goals
 
-Students can register for your course throughout the enrollment period, and they can unregister from a course at any time, which unenrolls them from the course. Students can also change their email addresses and full names at any time. 
-The student data that is available to course staff always reflects the set of live, current enrollments. 
-
-***Question**: is this correct? 
+The student data that is available to course staff always reflects the set of live, current enrollments. Students can register for your course throughout the defined enrollment period, and they can unregister from a course at any time, which unenrolls them. Students can also change their email addresses and full names at any time. As a result, you may want to download student data periodically to gain insights into how the student population changes over time. 
 
 ==========================================
 Viewing and downloading student data
 ==========================================
 
-You can view and download student data to learn about population demographics at a specific point in time, compare demographics at different points in time, and learn about trends in the population over time.
+You can view and download student data to learn about population demographics at a specific point in time, compare demographics at different points in time, and plot trends in the population over time.
 
-**Important**: The larger the enrollment for your course, the longer it takes to create and download this file. Do not navigate away from this page while you wait. **Question:** Is this correct?
+**Important**: Do not navigate away from this page while you wait for the data to be prepared. The larger the enrollment for your course, the longer it takes to create and output the data. 
 
 To view or download student data:
 
@@ -106,10 +103,10 @@ To display demographic distributions for gender and educational attainment:
 #. Click **Analytics**. Tables display Gender Distribution and Level of Education for the students currently enrolled in your course.
 
    .. image:: Images/Distribution_Education.png
-    :alt: Table with columns for different possible values reported for gender and total counts for each value
+    :alt: Table with columns for different possible values for gender and total count reported for each value
 
    .. image:: Images/Distribution_Gender.png
-    :alt: Table with columns for different possible values reported for level of education completed and total counts for each value
+    :alt: Table with columns for different possible values for level of education completed and total count reported for each value
 
 Data for individual students is not shown, and you cannot download these counts directly from this page. See :ref:`Viewing and downloading student data`.
 
@@ -119,7 +116,7 @@ Data for individual students is not shown, and you cannot download these counts 
 Accessing anonymized student IDs
 ********************************
 
-Some of the tools that are available for use with the edX platform, including external graders and surveys, work with anonymized student data. If it becomes necessary to deanonymize previously anonymized data, you can download a CSV file to use for that purpose.
+Some of the tools that are available for use with the edX platform, including external graders and surveys, work with anonymized student data. If it becomes necessary for you to deanonymize previously anonymized data, you can download a CSV file to use for that purpose.
 
 To download a file of assigned user IDs and anonymized user IDs:
 
@@ -131,7 +128,7 @@ To download a file of assigned user IDs and anonymized user IDs:
 
 You are prompted to open or save the (course-id)-anon-id.csv file for your course. This file contains the user ID that is assigned to each student at registration and its corresponding anonymized ID. Values are included for every student who ever enrolled for your course. 
 
-You can use the data in this file, and join it with the data in the enrolled_profile.csv file of student data and any (course_id)_grade_report_(date).csv file for your course to research and deanonymize student data.
+You can use the data in this file together with the data in the enrolled_profile.csv file of student data and in a (course_id)_grade_report_(date).csv file for your course to research and deanonymize student data.
 
 
 
