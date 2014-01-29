@@ -79,7 +79,7 @@ log = logging.getLogger("edx.student")
 AUDIT_LOG = logging.getLogger("audit")
 
 Article = namedtuple('Article', 'title url author image deck publication publish_date')
-ReverifyInfo = namedtuple('ReverifyInfo', 'course_id course_name course_number date status')
+ReverifyInfo = namedtuple('ReverifyInfo', 'course_id course_name course_number date status display')
 
 
 def csrf_token(context):
@@ -233,6 +233,7 @@ def single_course_reverification_info(user, course, enrollment):
         course.id, course.display_name, course.number,
         window.end_date.strftime('%B %d, %Y %X %p'),
         SoftwareSecurePhotoVerification.user_status(user, window)[0],
+        SoftwareSecurePhotoVerification(user, window).display,
     )
 
 

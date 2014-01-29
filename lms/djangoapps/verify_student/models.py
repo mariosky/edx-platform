@@ -149,6 +149,11 @@ class PhotoVerification(StatusModel):
     created_at = models.DateTimeField(auto_now_add=True, db_index=True)
     updated_at = models.DateTimeField(auto_now=True, db_index=True)
 
+    # Indicates whether or not a user wants to see the verification status
+    # displayed on their dash.  Right now, only relevant for allowing students
+    # to "dismiss" a failed midcourse reverification message
+    display = models.BooleanField(db_index=True, default=True)
+
     ######################## Fields Set When Submitting ########################
     submitted_at = models.DateTimeField(null=True, db_index=True)
 

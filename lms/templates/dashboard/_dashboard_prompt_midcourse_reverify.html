@@ -64,6 +64,7 @@
       <div class="msg-content">
         <h2 class="title">${_("Your re-verification failed")}</h2>
         % for item in reverifications["denied"]:
+        % if item.display:
         <div class="copy">
           <p class='activation-message'>
             ${_('Your re-verification for <strong>{course_name}</strong> failed and you are no longer eligible for a Verified Certificate.  If you think this is in error, please contact us at support@edx.org.').format(course_name=item.course_name)}
@@ -76,5 +77,6 @@
     </div>
   </div>
 </div>
+% endif
 % endfor
 %endif
