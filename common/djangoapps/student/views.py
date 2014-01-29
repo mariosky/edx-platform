@@ -79,6 +79,7 @@ log = logging.getLogger("edx.student")
 AUDIT_LOG = logging.getLogger("audit")
 
 Article = namedtuple('Article', 'title url author image deck publication publish_date')
+ReverifyInfo = namedtuple('ReverifyInfo', 'course_id course_name course_number date status')
 
 
 def csrf_token(context):
@@ -223,8 +224,6 @@ def single_course_reverification_info(user, course, enrollment):
         5-namedtuple: (course_id, course_name, course_number, date, status)
         OR, None: None if there is no re-verification info for this enrollment
     """
-    ReverifyInfo = namedtuple('ReverifyInfo', 'course_id course_name course_number date status')
-
     window = MidcourseReverificationWindow.get_window(course.id, datetime.datetime.now(UTC))
 
     # If there's no window OR the user is not verified, we don't get reverification info
