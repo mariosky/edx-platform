@@ -12,6 +12,7 @@ For information about the data you can access, see the following topics:
 
 * :ref:`Accessing_anonymized`
 
+You can also view charts of certain student demographics for graded problems. See :ref:`course_grades.rst`. 
 
 .. _PII:
 
