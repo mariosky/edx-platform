@@ -413,9 +413,6 @@ def midcourse_reverify_dash(request):
 
     reverifications = reverification_info(course_enrollment_pairs, user, statuses)
 
-    from util.request import safe_get_host; host = safe_get_host(request)
-    referer = request.META.get('HTTP_REFERER')
-
     context = {
         "user_full_name": user.profile.name,
         'reverifications': reverifications,
@@ -423,7 +420,12 @@ def midcourse_reverify_dash(request):
     }
     return render_to_response("verify_student/midcourse_reverify_dash.html", context)
 
+
 def toggle_failed_banner_off(request):
+    """
+    Finds all denied midcourse reverifications for a user and permanently toggles
+    the "Reverification Failed" banner off for those verifications.
+    """
     user_id = request.POST.get('user_id')
     SoftwareSecurePhotoVerification.display_off(user_id)
     return

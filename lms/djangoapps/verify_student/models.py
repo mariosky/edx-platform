@@ -472,7 +472,10 @@ class PhotoVerification(StatusModel):
 
     @classmethod
     def display_off(cls, user_id):
-        """ Switches a PhotoVerification's  """
+        """
+        Find all failed PhotoVerifications for a user, and sets those verifications' `display`
+        property to false, so the notification banner can be switched off.
+        """
         user = User.objects.get(id=user_id)
         query = cls.objects.filter(user=user, status="denied").exclude(window=None)
         for item in query:
@@ -481,6 +484,7 @@ class PhotoVerification(StatusModel):
 
     @classmethod
     def display_status(cls, user, window):
+        """ Finds the `display` property for the PhotoVerification associated with (user, window) """
         attempts = cls.objects.filter(user=user, window=window).order_by('-updated_at')
         attempt = attempts[0]
         return attempt.display
