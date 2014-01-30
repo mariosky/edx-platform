@@ -483,10 +483,16 @@ class PhotoVerification(StatusModel):
 
     @classmethod
     def display_status(cls, user, window):
-        """ Finds the `display` property for the PhotoVerification associated with (user, window) """
+        """
+        Finds the `display` property for the PhotoVerification associated with 
+        (user, window). Default is True
+        """
         attempts = cls.objects.filter(user=user, window=window).order_by('-updated_at')
-        attempt = attempts[0]
-        return attempt.display
+        try:
+            attempt = attempts[0]
+            return attempt.display
+        except IndexError:
+            return True
 
 
 class SoftwareSecurePhotoVerification(PhotoVerification):
