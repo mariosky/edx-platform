@@ -198,9 +198,7 @@ def reverification_info(course_enrollment_pairs, user, statuses):
     reverifications = defaultdict(list)
     for (course, enrollment) in course_enrollment_pairs:
         info = single_course_reverification_info(user, course, enrollment)
-        for status in statuses:
-            if info and (status in info):
-                reverifications[status].append(info)
+        reverifications[info.status].append(info)
 
     # Sort the data by the reverification_end_date
     for status in statuses:
@@ -221,14 +219,14 @@ def single_course_reverification_info(user, course, enrollment):
         enrollment (CourseEnrollment): the object representing the type of enrollment user has in course
 
     Returns:
-        5-namedtuple: (course_id, course_name, course_number, date, status)
+        ReverifyInfo: (course_id, course_name, course_number, date, status)
         OR, None: None if there is no re-verification info for this enrollment
     """
     window = MidcourseReverificationWindow.get_window(course.id, datetime.datetime.now(UTC))
 
     # If there's no window OR the user is not verified, we don't get reverification info
     if (not window) or (enrollment.mode != "verified"):
-        return None
+        return
     return ReverifyInfo(
         course.id, course.display_name, course.number,
         window.end_date.strftime('%B %d, %Y %X %p'),
