@@ -672,7 +672,7 @@ function (VideoPlayer, VideoStorage) {
     }
 
     function saveState(async) {
-        var position = this.videoPlayer.currentTime;
+        var position = Math.round(this.videoPlayer.currentTime);
 
         this.storage.setItem('position', position, true);
         $.ajax({

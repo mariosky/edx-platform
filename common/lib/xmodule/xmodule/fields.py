@@ -193,7 +193,7 @@ class RelativeTime(Field):
         if not value:
             return "00:00:00"
 
-        if isinstance(value, float):  # backward compatibility
+        if isinstance(value, float) or isinstance(value, int):  # backward compatibility
             value = min(value, 86400)
             return self.timedelta_to_string(datetime.timedelta(seconds=value))
 
