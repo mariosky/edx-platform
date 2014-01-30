@@ -16,6 +16,7 @@ from django_comment_common.utils import unseed_permissions_roles
 from xmodule.modulestore.store_utilities import delete_course
 from xmodule.course_module import CourseDescriptor
 from xmodule.modulestore.draft import DIRECT_ONLY_CATEGORIES
+from student.models import CourseEnrollment
 from student.roles import CourseInstructorRole, CourseStaffRole
 
 
@@ -51,6 +52,8 @@ def delete_course_and_groups(course_id, commit=False):
                 staff_role.remove_users(*staff_role.users_with_role())
                 instructor_role = CourseInstructorRole(loc)
                 instructor_role.remove_users(*instructor_role.users_with_role())
+                # delete all course enrollments
+                CourseEnrollment.delete_course_enrollments(course_id)
             except Exception as err:
                 log.error("Error in deleting course groups for {0}: {1}".format(loc, err))
 
