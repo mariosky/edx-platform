@@ -308,11 +308,12 @@ function (VideoPlayer, VideoStorage) {
                                 0;
                     },
                     'speed': function (value) {
-                        return  storage.getItem('speed', true) ||
-                                storage.getItem('general_speed') ||
-                                value.toFixed(2).replace(/\.00$/, '.0') ||
-                                '1.0';
-                    },
+                        return storage.getItem('speed', true) || value;
+                     },
+                    'generalSpeed': function (value) {
+                        return storage.getItem('general_speed', true) ||
+                            value || '1.0';
+                     },
                     'ytTestTimeout': function (value) {
                         value = parseInt(value, 10);
 
@@ -405,11 +406,6 @@ function (VideoPlayer, VideoStorage) {
             __dfd__ = $.Deferred(),
             isTouch = onTouchBasedDevice() || '',
             storage = VideoStorage('VideoData', id);
-            speed = storage.getItem('video_speed_' + id) ||
-                el.data('speed') ||
-                storage.getItem('general_speed') ||
-                el.data('general-speed') ||
-                '1.0';
 
         if (isTouch) {
             el.addClass('is-touch');
@@ -423,7 +419,6 @@ function (VideoPlayer, VideoStorage) {
             id: id,
             isFullScreen: false,
             isTouch: isTouch,
-            speed: Number(speed).toFixed(2).replace(/\.00$/, '.0'),
             storage: storage
         });
 
@@ -446,7 +441,10 @@ function (VideoPlayer, VideoStorage) {
             this.config.endTime = null;
         }
 
-        this.speed = this.config.speed;
+        this.speed = this.speed = Number(
+            this.config.speed || this.config.generalSpeed
+        )
+            .toFixed(2).replace(/\.00$/, '.0');
         this.currentTime = this.config.position;
 
         if (!(_parseYouTubeIDs(this))) {
