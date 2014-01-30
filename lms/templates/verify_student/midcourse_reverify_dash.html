@@ -23,7 +23,7 @@
               <div class="wrapper-reverify-open">
                 <h3 class="title">${_("You currently need to re-verify for the following courses:")}</h3>
                 <ul class="reverification-list">
-                % for course_id, course_name, course_number, date, status in reverifications["must_reverify"]:
+                % for course_id, course_name, course_number, date, status, display in reverifications["must_reverify"]:
                   <li class="item">
                     <div class="course-info">
                       <h3 class="course-name">${course_name} (${course_number})</h3>
@@ -40,7 +40,7 @@
                 <h3 class="title">${_("You currently need to re-verify for the following course:")}</h3>
 
                 <ul class="reverification-list">
-                % for course_id, course_name, course_number, date, status in reverifications["must_reverify"]:
+                % for course_id, course_name, course_number, date, status, display in reverifications["must_reverify"]:
                   <li class="item">
                     <div class="course-info">
                       <h3 class="course-name">${course_name} (${course_number})</h3>
@@ -58,7 +58,7 @@
               <h3 class="title">${_("The status of your submitted re-verifications:")}</h3>
               <ul class="reverification-list reverification-status">
 
-              % for course_id, course_name, course_number, date, status in reverifications["pending"]:
+              % for course_id, course_name, course_number, date, status, display in reverifications["pending"]:
                 <li class="item pending">
                   <div class="course-info">
                     <h3 class="course-name">${course_name} (${course_number})</h3>
@@ -68,7 +68,7 @@
                 </li>
               % endfor
 
-              % for course_id, course_name, course_number, date, status in reverifications["approved"]:
+              % for course_id, course_name, course_number, date, status, display in reverifications["approved"]:
                 <li class="item complete">
                   <div class="course-info">
                     <h3 class="course-name">${course_name} (${course_number})</h3>
@@ -78,7 +78,7 @@
                 </li>
               % endfor
 
-              % for course_id, course_name, course_number, date, status in reverifications["denied"]:
+              % for course_id, course_name, course_number, date, status, display in reverifications["denied"]:
                 <li class="item failed">
                   <div class="course-info">
                     <h3 class="course-name">${course_name} (${course_number})</h3>

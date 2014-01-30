@@ -470,6 +470,11 @@ class PhotoVerification(StatusModel):
         self.status = "must_retry"
         self.save()
 
+    def display_off(user, window):
+        """ Switches a PhotoVerification's  """
+        self.display = False
+        self.save()
+
 
 class SoftwareSecurePhotoVerification(PhotoVerification):
     """

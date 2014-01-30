@@ -59,7 +59,7 @@
 %endif
 
 %if reverifications["denied"]:
-<div class="wrapper-msg urgency-low">
+<div class="wrapper-msg urgency-low" id="failed-verification-banner">
   <div class="msg msg-reverify is-dismissable">
       <div class="msg-content">
         <h2 class="title">${_("Your re-verification failed")}</h2>
@@ -72,7 +72,7 @@
         </div>
       </div>
       <div class="action-dismiss">
-        <button class="button-dismiss"><i class="icon-remove-sign"></i> <span class="sr">Dismiss</span></button>
+        <button class="button-dismiss" id="failed-verification-button-dismiss"><i class="icon-remove-sign"></i> <span class="sr">Dismiss</span></button>
       </div>
     </div>
   </div>

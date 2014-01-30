@@ -23,6 +23,21 @@
         $(this).closest('.message.is-expandable').toggleClass('is-expanded');
     }
 
+    $("#failed-verification-button-dismiss").click(function(event) {
+      test = "test";
+      // user = $(event.target).data("user");
+      // course = $(event.target).data("course-id");
+      var serializedData = $form.serialize();
+      $.ajax({
+        url: $_({reverse("test")}),
+        type: "post",
+        data: { test: test, }
+        })
+      request.done(function (response, textStatus, jqXHR){
+        $("#failed-verification-banner").css("display","none");
+        })
+      })
+
     $("#upgrade-to-verified").click(function(event) {
       user = $(event.target).data("user");
       course = $(event.target).data("course-id");
