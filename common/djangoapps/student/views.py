@@ -203,7 +203,7 @@ def reverification_info(course_enrollment_pairs, user, statuses):
     # Sort the data by the reverification_end_date
     for status in statuses:
         if reverifications[status]:
-            reverifications[status] = sorted(reverifications[status], key=lambda x: x.date)
+            reverifications[status].sort(key=lambda x: x.date)
     return reverifications
 
 

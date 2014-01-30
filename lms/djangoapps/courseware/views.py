@@ -682,10 +682,7 @@ def fetch_reverify_banner_info(request, course_id):
     course = course_from_id(course_id)
     info = single_course_reverification_info(user, course, enrollment)
     if info:
-        if "must_reverify" in info:
-            reverifications["must_reverify"].append(info)
-        elif "denied" in info:
-            reverifications["denied"].append(info)
+        reverifications[info.status].append(info)
     return reverifications
 
 @login_required

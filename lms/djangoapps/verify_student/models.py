@@ -228,10 +228,9 @@ class PhotoVerification(StatusModel):
         window is anything else, this will check for the reverification associated
         with that window.
         """
-        if window:
-            valid_statuses = ['submitted', 'approved']
-        else:
-            valid_statuses = ['must_retry', 'submitted', 'approved']
+        valid_statuses = ['submitted', 'approved']
+        if not window:
+            valid_statuses.append('must_retry')
         return cls.objects.filter(
             user=user,
             status__in=valid_statuses,
