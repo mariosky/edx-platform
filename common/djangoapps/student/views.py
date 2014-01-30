@@ -474,8 +474,6 @@ def dashboard(request):
             denied_banner = True
             break
 
-    toggle_failed_banner_off_url = reverse("verify_student_toggle_failed_banner_off")
-
     context = {'course_enrollment_pairs': course_enrollment_pairs,
                'course_optouts': course_optouts,
                'message': message,
@@ -490,7 +488,6 @@ def dashboard(request):
                'verification_status': verification_status,
                'verification_msg': verification_msg,
                'show_refund_option_for': show_refund_option_for,
-               'toggle_failed_banner_off_url': toggle_failed_banner_off_url,
                'denied_banner': denied_banner,
                }
 
