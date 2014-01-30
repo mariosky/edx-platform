@@ -464,13 +464,9 @@ def dashboard(request):
     except ExternalAuthMap.DoesNotExist:
         pass
 
-    denied_banner = False
     # If there are *any* denied reverifications that have not been toggled off,
     # we'll display the banner
-    for item in reverifications["denied"]:
-        if item.display:
-            denied_banner = True
-            break
+    denied_banner = any(item.display for item in reverifications["denied"])
 
     context = {'course_enrollment_pairs': course_enrollment_pairs,
                'course_optouts': course_optouts,
