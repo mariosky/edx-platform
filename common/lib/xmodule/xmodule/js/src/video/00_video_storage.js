@@ -6,14 +6,12 @@ define(
 function() {
     "use strict";
 /**
- * Provides convenient way to work with cookies.
- *
- * Maximum 4096 bytes can be stored per namespace.
+ * Provides convenient way to store key value pairs.
  *
  * @TODO: Uses localStorage if available.
  *
  * @param {string} namespace Namespace that is used to store data.
- * @return {object} CookieStorage API.
+ * @return {object} VideoStorage API.
  */
     var VideoStorage = function (namespace, id) {
         /**
