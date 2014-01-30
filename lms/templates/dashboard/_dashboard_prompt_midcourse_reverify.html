@@ -58,7 +58,7 @@
   %endif
 %endif
 
-%if reverifications["denied"]:
+%if reverifications["denied"] and denied_banner:
 <div class="wrapper-msg urgency-low" id="failed-verification-banner">
   <div class="msg msg-reverify is-dismissable">
       <div class="msg-content">

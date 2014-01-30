@@ -483,7 +483,6 @@ class PhotoVerification(StatusModel):
     def display_status(cls, user, window):
         attempts = cls.objects.filter(user=user, window=window).order_by('-updated_at')
         attempt = attempts[0]
-        from nose.tools import set_trace; set_trace()
         return attempt.display
 
 

@@ -197,7 +197,6 @@ def reverification_info(course_enrollment_pairs, user, statuses):
     """
     reverifications = defaultdict(list)
     for (course, enrollment) in course_enrollment_pairs:
-        from nose.tools import set_trace; set_trace()
         info = single_course_reverification_info(user, course, enrollment)
         for status in statuses:
             if info and (status in info):
@@ -207,7 +206,6 @@ def reverification_info(course_enrollment_pairs, user, statuses):
     for status in statuses:
         if reverifications[status]:
             reverifications[status] = sorted(reverifications[status], key=lambda x: x.date)
-    from nose.tools import set_trace; set_trace()
     return reverifications
 
 
@@ -468,6 +466,14 @@ def dashboard(request):
     except ExternalAuthMap.DoesNotExist:
         pass
 
+    denied_banner = False
+    # If there are *any* denied reverifications that have not been toggled off,
+    # we'll display the banner
+    for item in reverifications["denied"]:
+        if item.display:
+            denied_banner = True
+            break
+
     toggle_failed_banner_off_url = reverse("verify_student_toggle_failed_banner_off")
 
     context = {'course_enrollment_pairs': course_enrollment_pairs,
@@ -485,6 +491,7 @@ def dashboard(request):
                'verification_msg': verification_msg,
                'show_refund_option_for': show_refund_option_for,
                'toggle_failed_banner_off_url': toggle_failed_banner_off_url,
+               'denied_banner': denied_banner,
                }
 
     return render_to_response('dashboard.html', context)
