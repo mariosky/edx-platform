@@ -27,15 +27,12 @@
       test = "test";
       // user = $(event.target).data("user");
       // course = $(event.target).data("course-id");
-      var serializedData = $form.serialize();
       $.ajax({
-        url: $_({reverse("test")}),
+        url: "${toggle_failed_banner_off_url}",
         type: "post",
-        data: { test: test, }
+        data: { 'user_id': ${user.id}, }
         })
-      request.done(function (response, textStatus, jqXHR){
-        $("#failed-verification-banner").css("display","none");
-        })
+      $("#failed-verification-banner").css("display","none");
       })
 
     $("#upgrade-to-verified").click(function(event) {

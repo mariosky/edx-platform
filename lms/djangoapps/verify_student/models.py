@@ -470,10 +470,21 @@ class PhotoVerification(StatusModel):
         self.status = "must_retry"
         self.save()
 
-    def display_off(user, window):
+    @classmethod
+    def display_off(cls, user_id):
         """ Switches a PhotoVerification's  """
-        self.display = False
-        self.save()
+        user = User.objects.get(id=user_id)
+        query = cls.objects.filter(user=user, status="denied").exclude(window=None)
+        for item in query:
+            item.display = False
+            item.save()
+
+    @classmethod
+    def display_status(cls, user, window):
+        attempts = cls.objects.filter(user=user, window=window).order_by('-updated_at')
+        attempt = attempts[0]
+        from nose.tools import set_trace; set_trace()
+        return attempt.display
 
 
 class SoftwareSecurePhotoVerification(PhotoVerification):

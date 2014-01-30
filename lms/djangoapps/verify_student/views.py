@@ -423,6 +423,12 @@ def midcourse_reverify_dash(request):
     }
     return render_to_response("verify_student/midcourse_reverify_dash.html", context)
 
+def toggle_failed_banner_off(request):
+    from nose.tools import set_trace; set_trace()
+    user_id = request.POST.get('user_id')
+    SoftwareSecurePhotoVerification.display_off(user_id)
+    return
+
 
 @login_required
 def reverification_submission_confirmation(_request):
