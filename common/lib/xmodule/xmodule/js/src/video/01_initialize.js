@@ -674,7 +674,6 @@ function (VideoPlayer, VideoStorage) {
     function saveState(async) {
         var position = this.videoPlayer.currentTime;
 
-        this.videoPlayer.onPause();
         this.storage.setItem('position', position, true);
         $.ajax({
             url: this.config.saveStateUrl,
