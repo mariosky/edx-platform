@@ -67,6 +67,8 @@ function (HTML5Video, Resizer) {
         // metadata is loaded, which normally happens just after the video
         // starts playing. Just after that configurations can be applied.
         state.videoPlayer.ready = _.once(function () {
+            $(window).on('unload', state.saveState);
+
             if (state.currentPlayerMode !== 'flash') {
                 state.videoPlayer.onSpeedChange(state.speed);
             }
@@ -728,8 +730,7 @@ function (HTML5Video, Resizer) {
             ) {
                 var startTime = this.videoPlayer.startTime,
                     endTime = this.videoPlayer.endTime,
-                    position = this.config.position,
-                    time;
+                    position = this.config.position;
 
                 if (startTime) {
                     if (startTime < position && endTime > position) {

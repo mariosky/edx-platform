@@ -101,8 +101,6 @@ function (
             youtubeXhr = state.youtubeXhr;
         }
 
-        $(window).on('unload', state.saveState);
-
         // Because the 'state' object is only available inside this closure, we will also make
         // it available to the caller by returning it. This is necessary so that we can test
         // Video with Jasmine.
