@@ -602,11 +602,11 @@ class CourseEnrollment(models.Model):
         return d
 
     @classmethod
-    def delete_course_enrollments(cls, course_id):
+    def delete_enrollments_for_course(cls, course_id):
         """
         Deletes all 'Enrollment' objects related to a course from db
 
-        'course_id' is our usual course_id string (e.g. "edX/Test101/2013_Fall)
+        'course_id': id of course e.g. "edX/Test101/2013_Fall"
 
         Note: Use this method only if a course is actually deleted
         """
