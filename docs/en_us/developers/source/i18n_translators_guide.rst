@@ -27,7 +27,7 @@ Follow these steps to become an Open edX translator!
 
 2. Once you've set up your account, visit one of the edX projects and request to become
    a translator for your language.
-   Projects::
+   Projects include:
      `edx-platform <https://www.transifex.com/projects/p/edx-platform/>_`
      `edx-comments-service <https://www.transifex.com/projects/p/edx-comments-service/>`_
      `edx-notifier <https://www.transifex.com/projects/p/edx-notifier/>`_
@@ -82,6 +82,7 @@ Summary Of Placeholders
 +-------------------------+
 
 When dealing with placeholders, you must follow these rules:
+
 * Do Not translate the placeholder (for example, changing ``{day}`` to ``{día}``).
 * Do Not alter or remove the punctuation of the placeholder string (for example, changing a ``_`` to a ``-``).
 * Do Not alter the capitalization of the placeholder string (for example, changing ``day`` to ``Day``).
