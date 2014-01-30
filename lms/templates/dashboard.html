@@ -25,7 +25,7 @@
 
     $("#failed-verification-button-dismiss").click(function(event) {
       $.ajax({
-        url: "${toggle_failed_banner_off_url}",
+        url: "${reverse('verify_student_toggle_failed_banner_off')}",
         type: "post",
         data: { 'user_id': ${user.id}, }
         })
