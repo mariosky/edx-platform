@@ -440,7 +440,7 @@ def reverification_submission_confirmation(_request):
 
 
 @login_required
-def midcourse_reverification_confirmation(request):  # pylint: disable=W0613
+def midcourse_reverification_confirmation(request):  # pylint: disable=C0103
     """
     Shows the user a confirmation page if the submission to SoftwareSecure was successful
     """

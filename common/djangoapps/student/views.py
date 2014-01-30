@@ -79,7 +79,7 @@ log = logging.getLogger("edx.student")
 AUDIT_LOG = logging.getLogger("audit")
 
 Article = namedtuple('Article', 'title url author image deck publication publish_date')
-ReverifyInfo = namedtuple('ReverifyInfo', 'course_id course_name course_number date status display')
+ReverifyInfo = namedtuple('ReverifyInfo', 'course_id course_name course_number date status display')  # pylint: disable=C0103
 
 
 def csrf_token(context):
