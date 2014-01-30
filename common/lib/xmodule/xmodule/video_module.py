@@ -49,7 +49,7 @@ class VideoFields(object):
     position = RelativeTime(
         help="Current position in the video",
         scope=Scope.user_state,
-        default=0
+        default=datetime.timedelta(seconds=0)
     )
     show_captions = Boolean(
         help="This controls whether or not captions are shown by default.",
