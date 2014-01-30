@@ -80,7 +80,7 @@ function (HTML5Video, Resizer) {
             state.videoPlayer.PlayerState = HTML5Video.PlayerState;
         }
 
-        state.videoPlayer.currentTime = state.config.position || 0;
+        state.videoPlayer.currentTime = 0;
 
         state.videoPlayer.initialSeekToStartTime = true;
 
@@ -638,7 +638,7 @@ function (HTML5Video, Resizer) {
                 this.videoPlayer.onEnded();
                 break;
             case this.videoPlayer.PlayerState.CUED:
-                this.videoPlayer.player.seekTo(this.videoPlayer.startTime, true);
+                this.videoPlayer.player.seekTo(this.videoPlayer.seekToTimeOnCued, true);
                 // We need to call play() explicitly because after the call
                 // to functions cueVideoById() followed by seekTo() the video
                 // is in a PAUSED state.
@@ -723,18 +723,22 @@ function (HTML5Video, Resizer) {
             // performed already such a seek.
             if (
                 durationChange === false &&
-                videoPlayer.startTime > 0 &&
+                (videoPlayer.startTime > 0 || this.config.position !== 0) &&
                 !(tempStartTime === 0 && tempEndTime === null)
             ) {
                 var startTime = this.videoPlayer.startTime,
                     endTime = this.videoPlayer.endTime,
-                    position = this.videoPlayer.currentTime,
+                    position = this.config.position,
                     time;
 
-                if (startTime < position && endTime > position) {
-                    time = position;
+                if (startTime) {
+                    if (startTime < position && endTime > position) {
+                        time = position;
+                    } else {
+                        time = startTime;
+                    }
                 } else {
-                    time = startTime;
+                    time = position;
                 }
 
                 // After a bug came up (BLD-708: "In Firefox YouTube video with
@@ -765,6 +769,7 @@ function (HTML5Video, Resizer) {
                     // times
                     this.videoPlayer.skipOnEndedStartEndReset = true;
 
+                    this.videoPlayer.seekToTimeOnCued = time;
                     this.videoPlayer.player.cueVideoById(youTubeId, time);
                 } else {
                     this.videoPlayer.player.seekTo(time);

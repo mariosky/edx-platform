@@ -432,7 +432,6 @@ function (VideoPlayer, VideoStorage) {
             this.config.speed || this.config.generalSpeed
         )
             .toFixed(2).replace(/\.00$/, '.0');
-        this.currentTime = this.config.position;
 
         if (!(_parseYouTubeIDs(this))) {
 
