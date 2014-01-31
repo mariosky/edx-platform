@@ -428,7 +428,6 @@ def toggle_failed_banner_off(request):
     """
     user_id = request.POST.get('user_id')
     SoftwareSecurePhotoVerification.display_off(user_id)
-    return
 
 
 @login_required

@@ -226,7 +226,7 @@ def single_course_reverification_info(user, course, enrollment):
 
     # If there's no window OR the user is not verified, we don't get reverification info
     if (not window) or (enrollment.mode != "verified"):
-        return
+        return None
     return ReverifyInfo(
         course.id, course.display_name, course.number,
         window.end_date.strftime('%B %d, %Y %X %p'),
