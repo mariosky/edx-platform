@@ -384,7 +384,7 @@ class TestPhotoVerification(TestCase):
     def test_display(self):
         user = UserFactory.create()
         window = MidcourseReverificationWindowFactory()
-        attempt = SoftwareSecurePhotoVerification(user, window)
+        attempt = SoftwareSecurePhotoVerification(user=user, window=window, status="denied")
         attempt.save()
 
         # We expect the verification to be displayed by default
