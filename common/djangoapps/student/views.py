@@ -198,7 +198,8 @@ def reverification_info(course_enrollment_pairs, user, statuses):
     reverifications = defaultdict(list)
     for (course, enrollment) in course_enrollment_pairs:
         info = single_course_reverification_info(user, course, enrollment)
-        reverifications[info.status].append(info)
+        if info:
+            reverifications[info.status].append(info)
 
     # Sort the data by the reverification_end_date
     for status in statuses:
