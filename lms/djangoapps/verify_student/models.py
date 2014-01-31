@@ -476,12 +476,12 @@ class PhotoVerification(StatusModel):
         property to false, so the notification banner can be switched off.
         """
         user = User.objects.get(id=user_id)
-        query = cls.objects.filter(user=user, status="denied").exclude(window=None).update(display=False)
+        cls.objects.filter(user=user, status="denied").exclude(window=None).update(display=False)
 
     @classmethod
     def display_status(cls, user, window):
         """
-        Finds the `display` property for the PhotoVerification associated with 
+        Finds the `display` property for the PhotoVerification associated with
         (user, window). Default is True
         """
         attempts = cls.objects.filter(user=user, window=window).order_by('-updated_at')
@@ -544,7 +544,7 @@ class SoftwareSecurePhotoVerification(PhotoVerification):
         """
         all_windows = MidcourseReverificationWindow.objects.filter(course_id=course_id)
         # if there are no windows for a course, then return True right off
-        if (all_windows.exists()):
+        if (not all_windows.exists()):
             return True
 
         for window in all_windows:

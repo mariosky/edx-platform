@@ -208,7 +208,7 @@ def reverification_info(course_enrollment_pairs, user, statuses):
     return reverifications
 
 
-def single_course_reverification_info(user, course, enrollment):
+def single_course_reverification_info(user, course, enrollment):  # pylint: disable=invalid-name
     """Returns midcourse reverification-related information for user with enrollment in course.
 
     If a course has an open re-verification window, and that user has a verified enrollment in
