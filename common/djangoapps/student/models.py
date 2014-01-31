@@ -610,6 +610,9 @@ class CourseEnrollment(models.Model):
 
         Note: Use this method only if a course is actually deleted
         """
+        for course_enrollment in CourseEnrollment.objects.filter(course_id=course_id):
+            # make all course enrollments inactive before delete
+            course_enrollment.deactivate()
         CourseEnrollment.objects.filter(course_id=course_id).delete()
 
     def activate(self):

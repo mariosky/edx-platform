@@ -89,6 +89,12 @@ class AutoAuthEnabledTestCase(UrlResetMixin, TestCase):
         enrollment = CourseEnrollment.objects.get(course_id=course_id)
         self.assertEqual(enrollment.user.username, "test")
 
+        # Check that 'delete_enrollments_for_course' deletes all course enrollments
+        self._auto_auth(username='test_enroll', course_id=course_id)
+        self.assertEqual(CourseEnrollment.objects.count(), 2)
+        CourseEnrollment.delete_enrollments_for_course(course_id=course_id)
+        self.assertEqual(CourseEnrollment.objects.count(), 0)
+
     def test_double_enrollment(self):
 
         # Create a user and enroll in a course
